@@ -1,9 +1,10 @@
 class Spaceship extends Floater  
 {   
-  public Spaceship()
+  public Spaceship(char up, char left, char right)
   { 
-  myCenterX = 150; 
-  myCenterY = 150;   
+  
+  myCenterX = 450; 
+  myCenterY = 450;   
   myDirectionX = 0; 
   myDirectionY = 0;
   myPointDirection = 0;
