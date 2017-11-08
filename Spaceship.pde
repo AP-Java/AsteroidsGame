@@ -2,8 +2,9 @@ class Spaceship extends Floater
 { 
   public char up;
   public char left;
-  public char right;  
-  public Spaceship(char u,char l,char r)
+  public char right;
+  public char hyper;  
+  public Spaceship(char u,char l,char r, char h)
   {   
   up = u;
   left = l;
