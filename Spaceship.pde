@@ -1,5 +1,6 @@
 class Spaceship extends Floater  
 { 
+
   public char up;
   public char left;
   public char right;
@@ -36,4 +37,5 @@ public void setDirectionY(double y) {myDirectionY = y;}
 public double getDirectionY() {return myDirectionY;}   
 public void setPointDirection(int degrees) {myPointDirection = degrees;}   
 public double getPointDirection() {return myPointDirection;} 
+
 } 
