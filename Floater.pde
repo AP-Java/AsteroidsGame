@@ -25,7 +25,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     double dRadians =myPointDirection*(Math.PI/180);     
     //change coordinates of direction of travel    
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
-    myDirectionY += ((dAmount) * Math      .sin(dRadians));       
+    myDirectionY += ((dAmount) * Math.sin(dRadians));       
   }   
   public void turn (int nDegreesOfRotation)   
   {     
@@ -47,14 +47,14 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     {     
       myCenterX = width;    
     }    
-    if(myCenterY >height)
+    if(myCenterY >900)
     {    
       myCenterY = 0;    
     } 
     
     else if (myCenterY < 0)
     {     
-      myCenterY = height;    
+      myCenterY = 900;    
     }   
   }   
   public void show ()  //Draws the floater at the current position  

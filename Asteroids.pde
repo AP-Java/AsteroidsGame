@@ -65,4 +65,8 @@ class Asteroids extends Floater
  public double getPointDirection() {
    return myPointDirection;
  }
+ public void setColor(int theColor) {
+   myColor = theColor;}
+ public int getColor() {
+   return myColor;}
 }
