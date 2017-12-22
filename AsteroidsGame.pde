@@ -14,7 +14,7 @@ boolean bossMode = false;
 boolean oneDown = false;
 
 int score = 0;
-  
+int bCounter1 = 0;
 
 public void setup() 
 {
@@ -48,8 +48,6 @@ public void draw()
  bob.move();
  stroke(138,2,0);
  line((float)bob.getX(),(float)bob.getY(),mouseX,mouseY);
- stroke(2,0,138);
-if(bossMode == true) {line((float)enemy.getX(),(float)enemy.getY(),bob.getX(),bob.getY());}
  stroke(0);
 //Stars being made
 for (int i = 0; i < andrew.length; i++)
@@ -93,7 +91,16 @@ if ((bob.myDirectionX > 0 && bob.myDirectionX != 0) && (bobAccelerate == false))
 
 if (shooting1 == true)
 {
-bullets.add(new Bullet(bob));
+	
+	while(bCounter1 <= 100)
+		{
+		bCounter1++;
+		if (bCounter1 == 100)
+			{
+				bullets.add(new Bullet(bob));
+				bCounter1 = 0;
+			}
+		}
 }
  
 //Code for when Player's bullets hit the Asteroids
@@ -138,7 +145,13 @@ if (bossMode == true)
  	enemy.setPointDirection (90 + (int)(( (atan(o2/a2) )* -57 )));
  else
  	enemy.setPointDirection (270 + (int)(( (atan(o2/a2) )* -57 ))); 
-    enemy.accelerate(.05);
+ if( dist(bob.getX(),bob.getY(),enemy.getX(),enemy.getY()) < 150 ) 
+ 	{
+ 		enemy.accelerate(.05);
+ 		stroke(2,0,138);
+	    line((float)enemy.getX(),(float)enemy.getY(),bob.getX(),bob.getY());
+
+ 	}
 }
 if (bobAccelerate == true) {bob.accelerate(.1);}
 if ((bob.myDirectionX > 0 && bob.myDirectionX != 0) && (bobAccelerate == false)) {bob.accelerate(0);}
