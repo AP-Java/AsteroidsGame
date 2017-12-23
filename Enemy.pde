@@ -1,15 +1,9 @@
-class Spaceship extends Floater  
+class Enemy extends Floater  
 { 
 
-  public char up;
-  public char left;
-  public char right;
-  public char hyper;  
-  public Spaceship(char u,char l,char r, char h)
+  
+  public Enemy()
   {   
-  up = u;
-  left = l;
-  right = r;
   myCenterX = 450; 
   myCenterY = 450;   
   myDirectionX = 0; 

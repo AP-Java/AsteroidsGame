@@ -1,6 +1,6 @@
 
 Spaceship bob = new Spaceship('w', 'a', 'd', 'e');
-EnemySpaceship enemy = new EnemySpaceship();
+Enemy enemy = new Enemy();
 Stars [] andrew = new Stars[500];
 ArrayList <Bullet> bullets = new ArrayList <Bullet>();
 ArrayList<Asteroids>  dan = new ArrayList<Asteroids>();
@@ -8,13 +8,16 @@ boolean bobAccelerate = false;
 boolean bobTurnL = false;
 boolean bobTurnR = false;
 int asteroidCount = 5;
+int timer = 0;
+int playerHealth = 100;
+int enemyHealth = 100;
 boolean shooting1 = false;
 boolean shooting2 = false;
 boolean bossMode = false;
 boolean oneDown = false;
 
 int score = 0;
-int bCounter1 = 0;
+int bulletCount = 0;
 
 public void setup() 
 {
@@ -30,6 +33,7 @@ for (int l = 0; l < asteroidCount; l++)
    
  }
 }
+
 public void draw() 
 {
  //visual overlays
@@ -68,7 +72,7 @@ for (int i = 0; i < dan.size(); i++)
 	if (dist(dan.get(i).getX(), dan.get(i).getY(), bob.getX(), bob.getY()) < 25)
    	{
     	dan.remove(i);
-    	score -= 20;
+    	playerHealth -= 20;
 
     }
  }
@@ -87,21 +91,35 @@ for (int i = 0; i < dan.size(); i++)
 //Player accelerating
 if (bobAccelerate == true) {bob.accelerate(.1);}
 if ((bob.myDirectionX > 0 && bob.myDirectionX != 0) && (bobAccelerate == false)) {bob.accelerate(0);}
+
+
 //Player Shooting bullets
 
-if (shooting1 == true)
+if ((shooting1 == true) && (bulletCount < 5))
 {
-	
-	while(bCounter1 <= 100)
-		{
-		bCounter1++;
-		if (bCounter1 == 100)
-			{
-				bullets.add(new Bullet(bob));
-				bCounter1 = 0;
-			}
-		}
+	bullets.add(new Bullet(bob));
+  bulletCount++;
+
 }
+if(bulletCount == 5)
+{
+  while(timer < 1000)
+    {timer++;}
+  bulletCount = 0;
+  timer = 0;   
+   
+}
+
+//health bar
+fill(0,255,0);
+noStroke();
+rect(bob.getX()- 25,bob.getY() - 20,(playerHealth/2), 3);
+
+//enemy health bar
+fill(138,2,0);
+noStroke();
+rect(enemy.getX()- 25,enemy.getY() - 20,(enemyHealth/2), 3);
+
  
 //Code for when Player's bullets hit the Asteroids
 
@@ -145,14 +163,22 @@ if (bossMode == true)
  	enemy.setPointDirection (90 + (int)(( (atan(o2/a2) )* -57 )));
  else
  	enemy.setPointDirection (270 + (int)(( (atan(o2/a2) )* -57 ))); 
- if( dist(bob.getX(),bob.getY(),enemy.getX(),enemy.getY()) < 150 ) 
- 	{
- 		enemy.accelerate(.05);
- 		stroke(2,0,138);
-	    line((float)enemy.getX(),(float)enemy.getY(),bob.getX(),bob.getY());
+ enemy.accelerate(( 5/(dist(bob.getX(),bob.getY(),enemy.getX(),enemy.getY()) ) ) );
+  if(dist(bob.getX(),bob.getY(),enemy.getX(),enemy.getY()) < 250)
+  {
+    
+    stroke(2,0,138);
+      line((float)enemy.getX(),(float)enemy.getY(),bob.getX(),bob.getY());
+  if(((millis() % 1) == 0) && (playerHealth > 0))
+  {
+    playerHealth--;
+  }
 
- 	}
+  }
+
 }
+
+
 if (bobAccelerate == true) {bob.accelerate(.1);}
 if ((bob.myDirectionX > 0 && bob.myDirectionX != 0) && (bobAccelerate == false)) {bob.accelerate(0);}
 
@@ -190,7 +216,10 @@ public void keyPressed()
 public void keyReleased()
 {
  if (key == bob.up) {bobAccelerate = false;}
- if (key == ' ') {shooting1 = false;}
+ if (key == ' ') {
+  shooting1 = false;
+  bulletCount = 0;
+ }
  if (key == bob.left) {bobTurnL = false;}
  if (key == bob.right) {bobTurnR = false;}
  
